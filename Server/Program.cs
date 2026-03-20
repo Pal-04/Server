@@ -14,11 +14,19 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+//using DbSeeder file to seed data into the database
+using (var scope = app.Services.CreateScope())
 {
-    app.MapOpenApi();
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    await DbSeeder.SeedAsync(context);
 }
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.MapOpenApi();
+    }
 
 app.UseHttpsRedirection();
 
