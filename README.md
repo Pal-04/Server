@@ -12,3 +12,4 @@
 7. UserRoles
 8. FluentAPI configuration
 9. Migration commands
+10. Clean Up
